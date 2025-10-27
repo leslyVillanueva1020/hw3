@@ -3,7 +3,8 @@ import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 
 dotenv.config();
-console.log("TMDB key loaded:", !!process.env.TMDB_API_KEY);
+console.log("TMDB key loaded:", process.env.TMDB_API_KEY ? 'yes' : 'no');
+const apiKey = process.env.TMDB_API_KEY;
 
 import {createRequire} from 'module';
 const cjsImport = createRequire(import.meta.url);
