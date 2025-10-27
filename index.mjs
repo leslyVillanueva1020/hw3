@@ -16,9 +16,14 @@ app.use(express.static("public"));
 
 //root route
 app.get('/', async(req, res) => {
-    res.render('home.ejs');
-}); // not sure what else to do here
+    let year = 2005; //later will be randomized
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&primary_release_year=${year}&sort_by=popularity.desc`;
 
+    const reponse = await fetch(url);
+    const data = await reponse.json();
+    console.log(data.results[0]);
+    res.render('home.ejs');
+});
 
 //music
 app.get('/music', (req, res) => {
