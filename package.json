@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "billboard-top-100": "^2.6.5",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "lyrics-finder": "^21.7.0",
     "node-fetch": "^3.3.2"
   }
 }

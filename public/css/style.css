@@ -1,0 +1,31 @@
+body{
+    background: linear-gradient(180deg, #e9efff, #ffffff);
+    font-family: "Orbitron", system-ui, sans-serif;
+    color:#2b2d42;
+}
+
+/* NAV BAR STYLING */
+.y2k-navbar{
+    background-color: #5971dd;
+    font-family:"Orbitron", system-ui, sans-serif;
+}
+
+.y2k-brand{
+    font-family: "Jersey 15", cursive;
+    font-size: 3rem;
+    color: white !important;
+    letter-spacing: 0.5px;
+}
+
+.y2k-link{
+    color: #e3e8ff !important;
+    font-family: "Jersey 15", cursive;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    transition: color .2s ease;
+}
+
+.y2k-link:hover {
+    color: white !important;
+    text-shadow: 0 0 8px rgba(255,255,255,.4);
+}

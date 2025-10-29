@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg y2k-navbar">
+        <div class="container-fluid">
+
+            <!-- site title -->
+            <a class="navbar-brand y2k-brand" href="/">Y2K Rewind</a>
+
+            <!-- mobile toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarY2K" aria-controls="navbarY2K"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarY2K">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link y2k-link" href="/">
+                            Home <%= currentPath === "/" ? "♥" : "♡" %>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link y2k-link" href="/music">
+                            Music <%= currentPath === "/music" ? "♥" : "♡" %>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link y2k-link" href="/movies">
+                            Movies <%= currentPath === "/movies" ? "♥" : "♡" %>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link y2k-link" href="/mashup">
+                            Mashup <%= currentPath === "/mashup" ? "♥" : "♡" %>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
