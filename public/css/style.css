@@ -1,5 +1,5 @@
 body{
-    background: linear-gradient(180deg, #e9efff, #ffffff);
+    background: linear-gradient(180deg, #99ABFD,#CED6FB, #FCFCFC);
     font-family: "Orbitron", system-ui, sans-serif;
     color:#2b2d42;
 }
@@ -28,4 +28,23 @@ body{
 .y2k-link:hover {
     color: white !important;
     text-shadow: 0 0 8px rgba(255,255,255,.4);
+}
+
+#mainPage{
+    border: 10px solid #727aa3;
+    height: 100vh;
+}
+
+#homeImg {
+    width: 80%;
+    height: 75%;
+    margin: 0 auto;
+    object-fit: cover;
+    overflow: hidden;
+    margin-bottom: 1em;
+}
+
+#homeImg img{
+    width:70%;
+    height: 115%;
 }

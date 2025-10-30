@@ -7,11 +7,22 @@
     <%- include("partials/nav.ejs") %>
 
 
-    <div id="main page">
-        <h2 class="h5 mt-4">2000s Fun Fact</h2>
+    <div class="m-4 p-4 text-center" id="mainPage">
+        <h2>Welcome to my Hw3: Express App</h2>
+        <div id="homeImg">
+            <img src="/images/y2kimg.jpg">
+        </div>
+        
+        <p>Y2K Rewind is a nostalgic web app that lets users relive the 2000s through fun facts, music, and movies. 
+            On the home page, you'll see a random “2000s Fun Fact.”  The Music page 
+            lets you search for lyrics from your favorite 2000s songs, while the Movies page showcases popular films from any year 
+            between 2000 and 2009. It's a playful mix of pop culture and tech — bringing the early 2000s back to life with dynamic data 
+            and a throwback design.</p>
+        <hr>
+        <h3 class="mt-4 mb-2">2000s Fun Fact</h3>
         <p><%= gossip %></p>
 
     </div>
-    
+
 </body>
 </html>
