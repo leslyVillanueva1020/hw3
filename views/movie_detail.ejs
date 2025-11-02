@@ -11,7 +11,70 @@
         <h1>Movie Detail</h1>
 
         <% if(movie) { %>
-            
+            <div class="movieSec">
+                <% if (movie.poster_path) { %>
+                    <img class="moviePoster"
+                    src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
+                    alt="<%= movie.title %> poster">
+                <% } %>
+
+                <div class="movieBody">
+                    <h2 class="movieTitle">
+                        <%= movie.title %>
+                        <% if (movie.release_date) { %>
+                            <span class="movieYear">
+                                (<%= movie.release_date.slice(0,4) %>)
+                            </span>
+                        <% } %>
+                    </h2>
+
+                    <ul class="movieInfo">
+                        <% if (movie.runtime) { %>
+                            <li><strong>Runtime:</strong> <%= Math.floor(movie.runtime/60) %>h <%= movie.runtime%60 %>m</li>
+                        <% } %>
+
+                        <% if (movie.genres && movie.genres.length) { %>
+                            <li><strong>Genres:</strong> <%= movie.genres.map(g => g.name).join(", ") %></li>
+                        <% } %>
+
+                        <li><strong>Rating:</strong> ⭐ <%= (movie.vote_average || 0).toFixed(1) %>/10</li>
+                    </ul>
+
+                    <p class="movieOverView"><%= movie.overview %></p>
+
+                    <% if(randQuoteCount === 0){ %>
+                        <h3><%= quote %></h3>
+                    <% } %>
+                </div>
+
+                <% if(cast) { %>
+                    <div class="cast">
+                        <h2 class="castTitle">The Cast</h2>
+                        <div class="castGrid">
+                            <% for (let person of cast) { %>
+                                <article class="castCard">
+                                    <a class="castCardMedia" href="/people/<%= person.id %>">
+                                    <% if (person.profile_path) { %>
+                                        <img src="https://image.tmdb.org/t/p/w185<%= person.profile_path %>"
+                                            alt="<%= person.name %> headshot">
+                                    <% } else { %>
+                                        <div class="castCardPlaceholder">No Image</div>
+                                    <% } %>
+                                    </a>
+                                    <div class="castCardBody">
+                                    <h3 class="castCardName">
+                                        <a href="/people/<%= person.id %>"><%= person.name %></a>
+                                    </h3>
+                                    <% if (person.character) { %>
+                                        <p class="castCardRole"><%= person.character %></p>
+                                    <% } %>
+                                    </div>
+                                </article>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
         <% } %>
     </div>
     

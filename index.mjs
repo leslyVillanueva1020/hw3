@@ -91,17 +91,18 @@ app.get('/movies/:id', async (req, res) => {
     } else{
         const randQuote = quotes.getSomeRandom(1)[0];
         console.log("Had to get rand quote");
-        randQuote+=1;
+        randQuoteCount+=1;
         movieQuote = randQuote;
     }
-    console.log("movie title:", title);
-    console.log("quote from movie:", movieQuote);
-    console.log("Cast: ", cast);
+    // console.log("movie title:", title);
+    // console.log("quote from movie:", movieQuote);
+    // console.log("Cast: ", cast);
 
-    res.render('movie_detail.ejs', {title:"Movie Details",
-        movie: title,
+    res.render('movie_detail.ejs', {title:`${title} - Movie Details`,
+        movie: detailsData,
         cast: cast,
-        quote: movieQuote
+        quote: movieQuote,
+        randQuoteCount: randQuoteCount
     });
 });
 

@@ -9,7 +9,7 @@
 
     <div class="m-4 p-5 text-center" id="mainPage">
         <h1>
-            <a href="/movies/search">Movie Search</a>
+            <a id="movieSearch" href="/movies/search">Movie Search</a>
         </h1>
 
         <% if(!query) { %>
@@ -42,7 +42,7 @@
                     <h4 class="cardTitle">
                         <%= movie.title %>
                         <% if (movie.release_date) { %>
-                        <span class="cardYear">(<%= new Date(movie.release_date).getFullYear() %>)</span>
+                        <span class="cardYear">(<%= movie.release_date.slice(0,4) %>)</span> <!--splices release date 2004-07-11 into just the first 4 nums=year-->
                         <% } %>
                     </h4>
 
@@ -63,7 +63,7 @@
             <!-- Pagination (optional; remove if you don't want it) -->
             <nav class="pagination" aria-label="Search results pages">
                 <% if (page > 1) { %>
-                <a class="paginationLink" href="/movies/search?q=<%= encodeURIComponent(query) %>&page=<%= page - 1 %>">« Prev</a>
+                <a class="paginationLink" href="/movies/search?q=<%= encodeURIComponent(query) %>&page=<%= page - 1 %>">« Prev </a>
                 <% } else { %>
                 <span class="paginationLink paginationLink--disabled">« Prev</span>
                 <% } %>
@@ -73,7 +73,7 @@
                 <% if (page < totalPages) { %>
                 <a class="paginationLink" href="/movies/search?q=<%= encodeURIComponent(query) %>&page=<%= page + 1 %>">Next »</a>
                 <% } else { %>
-                <span class="paginationLink paginationLink--disabled">Next »</span>
+                <span class="paginationLink paginationLink--disabled"> Next »</span>
                 <% } %>
             </nav>
         <% } %>
