@@ -1,6 +1,7 @@
 import express from 'express';
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
+const quotes = (await import("popular-movie-quotes")).default;
 
 dotenv.config();
 console.log("TMDB key loaded:", process.env.TMDB_API_KEY ? 'yes' : 'no');
@@ -54,6 +55,8 @@ app.get('/movies/search', async (req, res) => {
     const response = await fetch(url);
     const data = await response.json();
 
+    // console.log("Movie search data: ", data);
+
     res.render('movies_search.ejs', {title: "Search Movies",
             query: query, results: data.results || [],
             page: data.page, totalPages: data.totalPages || 1,
@@ -62,8 +65,44 @@ app.get('/movies/search', async (req, res) => {
 });
 
 //movie details
-app.get('/movies/:id', (req, res) => {
-    res.render('movie_detail.ejs', {title:"Movie Details"});
+app.get('/movies/:id', async (req, res) => {
+    const id = req.params.id;
+    const detailsUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
+    const creditsUrl = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`;
+
+    const detailsResp = await fetch(detailsUrl);
+    const creditsResp = await fetch(creditsUrl);
+
+    const detailsData = await detailsResp.json();
+    const creditsData = await creditsResp.json();
+
+    // console.log("DETAILS DATA:\n" + JSON.stringify(detailsData, null, 2));
+    // console.log("CREDITS DATA:\n" + JSON.stringify(creditsData, null, 2));
+
+    const cast = creditsData.cast.slice(0,8);
+    const title = detailsData.name || detailsData.title;
+
+    let movieQuote = null;
+    let quoteArr = quotes.getQuotesByMovie(title);
+    let randQuoteCount = 0;
+
+    if(quoteArr.length > 0){
+        movieQuote = quoteArr[0].quote;
+    } else{
+        const randQuote = quotes.getSomeRandom(1)[0];
+        console.log("Had to get rand quote");
+        randQuote+=1;
+        movieQuote = randQuote;
+    }
+    console.log("movie title:", title);
+    console.log("quote from movie:", movieQuote);
+    console.log("Cast: ", cast);
+
+    res.render('movie_detail.ejs', {title:"Movie Details",
+        movie: title,
+        cast: cast,
+        quote: movieQuote
+    });
 });
 
 //people search
