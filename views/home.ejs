@@ -9,19 +9,33 @@
 
     <div class="m-4 p-4 text-center" id="mainPage">
         <h2>Welcome to my Hw3: Express App</h2>
-        <div id="homeImg">
-            <img src="/images/y2kimg.jpg">
+        
+        <p>Explore the biggest hits and famous faces of the 2000s! 
+       Search for your favorite movies or actors, and view details powered by 
+       The Movie Database (TMDB) and classic movie quotes.</p>
+        <hr>
+
+        <form class="mb-2" action="/movies/search" method="GET">
+            <input type="text" name="q" placeholder="Search for a movie..." required>
+            <button type="submit">Search Movies</button>
+        </form>
+
+        <form class="mb-2" action="/people/search" method="GET">
+            <input type="text" name="q" placeholder="Search for an actor..." required>
+            <button type="submit">Search People</button>
+        </form>
+
+        <h3>Popular Movies from <%= year %></h3>
+        <div id="movieGrid">
+            <% for(let movie of movies) { %>
+                <div class="movieCard">
+                    <img src="https://image.tmdb.org/t/p/w342<%= movie.poster_path%>" alt="<%= movie.title%>">
+                    <h4><%= movie.title%></h4>
+                    <p>⭐ <%= movie.vote_average %>/10</p>
+                </div>
+            <% } %>
         </div>
         
-        <p>Y2K Rewind is a nostalgic web app that lets users relive the 2000s through fun facts, music, and movies. 
-            On the home page, you'll see a random “2000s Fun Fact.”  The Music page 
-            lets you search for lyrics from your favorite 2000s songs, while the Movies page showcases popular films from any year 
-            between 2000 and 2009. It's a playful mix of pop culture and tech — bringing the early 2000s back to life with dynamic data 
-            and a throwback design.</p>
-        <hr>
-        <h3 class="mt-4 mb-2">2000s Fun Fact</h3>
-        <p><%= gossip %></p>
-
     </div>
 
 </body>

@@ -32,10 +32,11 @@ body{
 
 #mainPage{
     border: 10px solid #727aa3;
-    height: 100vh;
+    height: auto;
 }
 
-#homeImg {
+/* Not being used any more */
+/* #homeImg {
     width: 80%;
     height: 75%;
     margin: 0 auto;
@@ -47,4 +48,23 @@ body{
 #homeImg img{
     width:70%;
     height: 115%;
+} */
+
+#movieGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.movieCard{
+    width: 200px; /* REPLACE FOR SOMETHING DYNAMIC LATER*/
+    border: 1px solid #ccc;
+    border-radius: 1em;
+    background-color: #fefefe;
+    padding: 10px;
+}
+
+.movieCard img{
+    width: 100%;
+    border-radius: 0.5em;
 }

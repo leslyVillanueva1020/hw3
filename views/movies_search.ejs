@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+</head>
+<body>
+    <%- include("partials/nav.ejs") %>
+
+
+    <div class="m-4 p-5 text-center" id="mainPage">
+        <h1>
+            <a href="/movies/search">Movie Search</a>
+        </h1>
+
+        <% if(!query) { %>
+            <p>Please type a movie title.</p> 
+            <br>
+        <% } %>
+
+        <% if(query && results.length === 0 && !error){ %>
+            <p>No results found for "<strong><%= query%></strong>". Try another title.</p>
+        <% } %>
+
+        <form action="/movies/search" method="GET">
+            <input type="text" name="q" value="<%= query %>" placeholder="Search for a movie..." required>
+            <button type="submit">Search</button>
+        </form>
+
+        <% if (results.length > 0) { %>
+            <h3>Results for "<%= query %>"</h3>
+
+            <div id="movieGrid">
+                <% for (let movie of results) { %>
+                <div class="movieCard">
+                    <% if (movie.poster_path) { %>
+                    <img src="https://image.tmdb.org/t/p/w342<%= movie.poster_path %>" alt="<%= movie.title %>">
+                    <% } else { %>
+                    <div class="cardImagePlaceholder">No Image</div>
+                    <% } %>
+
+                    <div class="cardBody">
+                    <h4 class="cardTitle">
+                        <%= movie.title %>
+                        <% if (movie.release_date) { %>
+                        <span class="cardYear">(<%= new Date(movie.release_date).getFullYear() %>)</span>
+                        <% } %>
+                    </h4>
+
+                    <p class="cardRating">⭐ <%= (movie.vote_average || 0).toFixed(1) %>/10</p>
+
+                    <% if (movie.overview) { %>
+                        <p class="cardSummary"><%= movie.overview %></p>
+                    <% } %>
+
+                    <p class="cardLink">
+                        <a href="/movies/<%= movie.id %>">View Details</a>
+                    </p>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+
+            <!-- Pagination (optional; remove if you don't want it) -->
+            <nav class="pagination" aria-label="Search results pages">
+                <% if (page > 1) { %>
+                <a class="paginationLink" href="/movies/search?q=<%= encodeURIComponent(query) %>&page=<%= page - 1 %>">« Prev</a>
+                <% } else { %>
+                <span class="paginationLink paginationLink--disabled">« Prev</span>
+                <% } %>
+
+                <span class="paginationStatus">Page <%= page %> of <%= totalPages %></span>
+
+                <% if (page < totalPages) { %>
+                <a class="paginationLink" href="/movies/search?q=<%= encodeURIComponent(query) %>&page=<%= page + 1 %>">Next »</a>
+                <% } else { %>
+                <span class="paginationLink paginationLink--disabled">Next »</span>
+                <% } %>
+            </nav>
+        <% } %>
+
+        
+    </div>
+    
+</body>
+</html>
