@@ -9,6 +9,58 @@
 
     <div class="m-4 p-5 text-center" id="mainPage">
         <h1>People Search</h1>
+
+        <% if(!query) { %>
+            <p>Please type an actor's name.</p>
+            <br>
+        <% } %>
+
+        <% if(query && results.length === 0) { %>
+            <p>No results found for "<strong><%= query%></strong>". Try another name.</p>
+        <% } %>
+
+        <form action="/people/search" method="GET">
+            <input type="text" name="q" value="<%= query %>" placeholder="Search for an actor.">
+            <button type="submit">Search</button>
+        </form>
+
+        <% if (results.length > 0) { %>
+            <h3>Results for "<%= query %>"</h3>
+
+            <div id="peopleGrid">
+                <% for(let person of results) { %>
+                    <div class="personCard">
+                        <% if(person.profile_path) { %>
+                            <img src="https://image.tmdb.org/t/p/w185<%= person.profile_path %>" alt="<%= person.name %> headshot">
+                        <% } else { %>
+                            <div class="personCardPlaceholder">No Image</div>
+                        <% } %>
+                    </div>
+
+                    <div class="personCardBody">
+                        <h4 class="personCardName"><a href="/people/<%= person.id %>"><%= person.name %></a></h4>
+
+                        <ul class="personCardKnownFor">
+                            <% for(let kf of person.known_for.slice(0,2)) { %>
+                                <li>
+                                    <% if (kf.media_type === 'movie') { %>
+                                        <a href="/movies/<%= kf.id %>"><%= kf.title %></a>
+                                        <% if (kf.release_date) { %>
+                                        (<%= kf.release_date.slice(0,4) %>)
+                                        <% } %>
+                                    <% } else if (kf.media_type === 'tv') { %>
+                                        <span><%= kf.name %></span>
+                                        <% if (kf.first_air_date) { %>
+                                        (<%= kf.first_air_date.slice(0,4) %>)
+                                        <% } %>
+                                    <% } %>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                <% } %>
+            </div>
+        <% } %>
     </div>
     
 </body>

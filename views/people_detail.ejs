@@ -9,6 +9,85 @@
 
     <div class="m-4 p-5 text-center" id="mainPage">
         <h1>People Details</h1>
+
+        <% if (person) { %>
+            <!-- Header block: image + facts + bio -->
+            <div class="personDetail">
+                <div class="personDetailHeader">
+                    <% if (person.profile_path) { %>
+                        <img class="personDetail__img"
+                            src="https://image.tmdb.org/t/p/w300<%= person.profile_path %>"
+                            alt="<%= person.name %> headshot">
+                    <% } %>
+
+                    <div class="personDetail__meta">
+                        <h1 class="personDetail__name"><%= person.name %></h1>
+
+                        <ul class="personDetail__facts">
+                        <% if (person.known_for_department) { %>
+                            <li><strong>Department:</strong> <%= person.known_for_department %></li>
+                        <% } %>
+                        <% if (person.birthday) { %>
+                            <li><strong>Born:</strong> <%= person.birthday %></li>
+                        <% } %>
+                        <% if (person.place_of_birth) { %>
+                            <li><strong>Place:</strong> <%= person.place_of_birth %></li>
+                        <% } %>
+                        </ul>
+
+                        <% if (person.biography) { %>
+                        <p class="personDetail__bio"><%= person.biography %></p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Known For -->
+            <% if (knownFor && knownFor.length) { %>
+                <div class="knownFor">
+                    <h2 class="sectionTitle">Known For</h2>
+                    <div class="knownForGrid">
+                        <% for (let k of knownFor) { %>
+                        <div class="kfCard">
+                            <a class="kfCard__link" href="<%= k.media_type === 'movie' ? '/movies/' + k.id : '#' %>">
+                            <% if (k.poster_path) { %>
+                                <img class="kfCard__img" src="https://image.tmdb.org/t/p/w342<%= k.poster_path %>" alt="">
+                            <% } else { %>
+                                <div class="kfCard__placeholder">No Image</div>
+                            <% } %>
+                            <h4 class="kfCard__title"><%= k.title || k.name %></h4>
+                            <% if (k.release_date || k.first_air_date) { %>
+                                <div class="kfCard__year"><%= (k.release_date || k.first_air_date).slice(0,4) %></div>
+                            <% } %>
+                            </a>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
+
+            <!-- Filmography -->
+            <% if (filmography && filmography.length) { %>
+                <div class="filmographySection">
+                    <h2 class="sectionTitle">Filmography</h2>
+                    <ul class="filmography">
+                        <% for (let c of filmography) { %>
+                        <li class="filmographyItem">
+                            <span class="filmographyYear">
+                            <%= (c.release_date || c.first_air_date || '—').slice(0,4) %>
+                            </span>
+                            <span class="filmographyTitle">
+                            <%= c.title || c.name %>
+                            </span>
+                            <% if (c.character) { %>
+                            <span class="filmographyRole">as <%= c.character %></span>
+                            <% } %>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+            <% } %>
+        <% } %>
     </div>
     
 </body>

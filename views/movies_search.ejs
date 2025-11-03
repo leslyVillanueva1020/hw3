@@ -8,20 +8,20 @@
 
 
     <div class="m-4 p-5 text-center" id="mainPage">
-        <h1>
+        <h1 class="mb-5">
             <a id="movieSearch" href="/movies/search">Movie Search</a>
         </h1>
 
         <% if(!query) { %>
-            <p>Please type a movie title.</p> 
+            <p>Please type in a movie title.</p> 
             <br>
         <% } %>
 
         <% if(query && results.length === 0 && !error){ %>
-            <p>No results found for "<strong><%= query%></strong>". Try another title.</p>
+            <p id="errorMsg">No results found for "<strong><%= query%></strong>". Try another title.</p>
         <% } %>
 
-        <form action="/movies/search" method="GET">
+        <form class="mb-3" action="/movies/search" method="GET">
             <input type="text" name="q" value="<%= query %>" placeholder="Search for a movie..." required>
             <button type="submit">Search</button>
         </form>
@@ -61,7 +61,7 @@
             </div>
 
             <!-- Pagination (optional; remove if you don't want it) -->
-            <nav class="pagination" aria-label="Search results pages">
+            <!-- <nav class="pagination" aria-label="Search results pages">
                 <% if (page > 1) { %>
                 <a class="paginationLink" href="/movies/search?q=<%= encodeURIComponent(query) %>&page=<%= page - 1 %>">« Prev </a>
                 <% } else { %>
@@ -75,7 +75,7 @@
                 <% } else { %>
                 <span class="paginationLink paginationLink--disabled"> Next »</span>
                 <% } %>
-            </nav>
+            </nav> -->
         <% } %>
 
         

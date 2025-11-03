@@ -107,13 +107,84 @@ app.get('/movies/:id', async (req, res) => {
 });
 
 //people search
-app.get('/people/search', (req, res) => {
-    res.render('people_search.ejs', {title:"Search People"});
+app.get('/people/search', async (req, res) => {
+    const query = (req.query.q || '').trim();
+    const page = Number(req.query.page || 1);
+
+    if(!query){
+        return res.render('people_search.ejs', {
+      title: 'Search People',
+      query: '',
+      results: [],
+      page: 1,
+      totalPages: 0,
+      error: null
+    });
+    }
+
+    const url = `https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${encodeURIComponent(query)}&page=${page}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+
+
+    res.render('people_search.ejs', {title:`Search Peopl: ${query}`,
+        query, results: data.results || [],
+        page: data.page || page,
+        totalPages: data.totalPages || 1,
+        error: null
+    });
 });
 
 //people detail
-app.get('/people/:id', (req, res) => {
-    res.render('people_detail.ejs', {title:"Person Details"});
+app.get('/people/:id', async (req, res) => {
+    const id = req.params.id;
+    const personUrl   = `https://api.themoviedb.org/3/person/${id}?api_key=${apiKey}`;
+    const creditsUrl  = `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=${apiKey}`;
+
+    const personResp = await fetch(personUrl);
+    const creditsResp = await fetch(creditsUrl);
+
+    const personData = await personResp.json();
+    const credits = await creditsResp.json();
+
+    // --- Handle errors safely ---
+    if (!personResp.ok) {
+        return res.render('people_detail.ejs', {
+        title: 'Person Details',
+        person: null,
+        knownFor: [],
+        filmography: [],
+        error: person.status_message || 'Could not load person.'
+        });
+    }
+
+    // --- Build known-for (top 8 by popularity) ---
+    let knownFor = [];
+    if (Array.isArray(credits.cast)) {
+        credits.cast.sort((a, b) => b.popularity - a.popularity);
+        knownFor = credits.cast.slice(0, 8);
+    }
+
+    // --- Build filmography (sorted by date, newest first) ---
+    let filmography = [];
+    if (Array.isArray(credits.cast)) {
+        credits.cast.sort((a, b) => {
+            const dateA = a.release_date || a.first_air_date || '';
+            const dateB = b.release_date || b.first_air_date || '';
+            if (dateA > dateB) return -1;
+            if (dateA < dateB) return 1;
+            return 0;
+        });
+        filmography = credits.cast;
+    }
+
+    res.render('people_detail.ejs', {title: `${personData.name} - Details`,
+        person: personData,
+        knownFor,
+        filmography,
+        error: null
+    });
 });
 
 app.listen(3000, () => {

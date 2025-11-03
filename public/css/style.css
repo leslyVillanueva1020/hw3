@@ -35,33 +35,25 @@ body{
     height: auto;
 }
 
-/* Not being used any more */
-/* #homeImg {
-    width: 80%;
-    height: 75%;
-    margin: 0 auto;
-    object-fit: cover;
-    overflow: hidden;
-    margin-bottom: 1em;
-}
-
-#homeImg img{
-    width:70%;
-    height: 115%;
-} */
-
+/* -------------- HOME PAGE RANDOM MOVIE -------------- */
 #movieGrid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
 }
 
 .movieCard{
-    width: 200px; /* REPLACE FOR SOMETHING DYNAMIC LATER*/
+    flex: 1 1 10%; 
+    min-width: 15rem;
+    max-width: 25rem;
     border: 1px solid #ccc;
     border-radius: 1em;
     background-color: #fefefe;
-    padding: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    
 }
 
 .movieCard img{
@@ -69,8 +61,254 @@ body{
     border-radius: 0.5em;
 }
 
-
 #movieSearch{
     text-decoration: none;
     color: #2b2d42;
 }
+
+#errorMsg{
+    color: red !important;
+}
+
+/* -------------- MOVIE DETAIL PAGE -------------- */
+.movieSec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Poster */
+.moviePoster {
+  width: 25rem;
+  border-radius: 1em;
+  box-shadow: 0 0.4em 0.8em rgba(0, 0, 0, 0.25);
+}
+
+/* Movie Body */
+.movieBody {
+  max-width: 700px;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.movieTitle {
+  font-size: 2rem;
+  margin-bottom: 0.3em;
+}
+
+.movieYear {
+  color: #777;
+  font-weight: normal;
+  margin-left: 0.25em;
+}
+
+.movieInfo {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1em 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.movieInfo li {
+  background: #f5f5f5;
+  border-radius: 0.5em;
+  padding: 0.5em 0.75em;
+}
+
+.movieOverView {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Quote box */
+.movieBody h3 {
+  font-style: italic;
+  background-color: #fafafa;
+  border-left: 5px solid #333;
+  padding: 1em;
+  border-radius: 0.5em;
+  font-weight: 500;
+  margin-top: 1em;
+}
+
+/* ---------- CAST SECTION ---------- */
+
+.cast {
+  margin-top: 3rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.castTitle {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.castGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.castCard {
+  background: #fff;
+  border-radius: 0.75em;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  width: 150px;
+}
+
+.castCard:hover {
+  transform: scale(1.05);
+}
+
+.castCardMedia img {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+
+.castCardPlaceholder {
+  height: 225px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  border-bottom: 1px dashed #ccc;
+}
+
+.castCardBody {
+  padding: 0.75em;
+  text-align: center;
+}
+
+.castCardName {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.castCardName a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 600;
+}
+
+.castCardRole {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .moviePoster {
+    width: 80%;
+  }
+
+  .movieBody {
+    padding: 0 1rem;
+  }
+
+  .movieInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+
+/* --------------- People Detail --------------- */
+.personDetail {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.personDetailHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) 1fr; /* image ~18rem, content flex */
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.personDetail__img {
+  width: 100%;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.3rem 1rem rgba(0,0,0,.15);
+}
+
+.personDetail__name {
+  margin: 0.25rem 0 0.5rem 0;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.personDetail__facts {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  font-size: 0.95rem;
+}
+
+.personDetail__bio {
+  line-height: 1.65;
+  color: #333;
+  margin: 0;
+}
+
+/* ===== Known For ===== */
+.knownFor { margin-top: 2rem; }
+.sectionTitle { margin: 1.25rem 0 0.75rem; font-size: 1.6rem; }
+
+.knownForGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+}
+
+.kfCard {
+  background: #fff;
+  border: 0.08rem solid #e6e6e6;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+.kfCard:hover { transform: translateY(-0.15rem); }
+
+.kfCard__img { width: 100%; display: block; }
+.kfCard__placeholder {
+  height: 14rem;
+  display: flex; align-items: center; justify-content: center;
+  color: #777; border-bottom: 0.08rem dashed #ddd;
+}
+
+.kfCard__title { margin: 0.5rem; font-size: 1rem; font-weight: 600; color: #222; }
+.kfCard__year  { margin: 0 0.5rem 0.6rem; color: #777; font-size: 0.9rem; }
+
+/* ===== Filmography ===== */
+.filmographySection { margin-top: 2rem; text-align: left; }
+
+.filmography {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.filmographyItem {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.45rem 0;
+  border-bottom: 0.08rem solid #eee;
+}
+
+.filmographyYear  { width: 3.2rem; color: #777; flex: 0 0 auto; }
+.filmographyTitle { font-weight: 600; color: #222; }
+.filmographyRole  { color: #555; font-size: 0.95rem; }
