@@ -205,7 +205,7 @@ body{
   margin-top: 0.25rem;
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* ---- RESPONSIVE movie section -------- */
 @media (max-width: 768px) {
   .moviePoster {
     width: 80%;
@@ -220,6 +220,76 @@ body{
     gap: 0.5rem;
   }
 }
+
+
+/* ------ People Search ------ */
+
+#peopleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.personCard {
+  background: #fff;
+  border: 0.08rem solid #e5e5e5;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;          /* stack: image → name → list */
+  align-items: stretch;
+  transition: transform .15s ease;
+  text-align: center;
+}
+
+.personCard:hover { transform: translateY(-0.15rem); }
+
+.personCard img {
+  width: 100%;
+  display: block;
+}
+
+.personCardPlaceholder {
+  height: 14rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  border-bottom: 0.08rem dashed #ddd;
+}
+
+.personCardBody {
+  padding: 0.75rem;
+}
+
+.personCardName {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.personCardName a {
+  text-decoration: none;
+  color: #222;
+}
+
+.personCardKnownFor {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.personCardKnownFor li + li { margin-top: 0.25rem; }
+
+.personCardKnownFor a {
+  color: #222;
+  text-decoration: none;
+}
+
+.personCardKnownFor a:hover { text-decoration: underline; }
 
 
 /* --------------- People Detail --------------- */
